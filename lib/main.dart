@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'My tracking app'),
     );
   }
 }
@@ -52,6 +52,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -62,6 +63,12 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+  int _currentIndex=0;
+  final tabs = [
+    Center(child: Text('Overview')),
+    Center(child: Text('AddTask')),
+    Center(child: Text('About')),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: tabs[_currentIndex],/*Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -106,12 +113,37 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+      ),*/
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        type:BottomNavigationBarType.fixed,
+        unselectedItemColor: Colors.lightBlueAccent,
+        selectedItemColor: Colors.blue,
+        items: [
+          BottomNavigationBarItem(
+              icon:Icon(Icons.home),
+              title:Text('Overview'),
+              backgroundColor: Colors.blue),
+          BottomNavigationBarItem(
+              icon:Icon(Icons.add),
+              title:Text('Add task'),
+              backgroundColor: Colors.red),
+          BottomNavigationBarItem(
+              icon:Icon(Icons.info),
+              title:Text('About'),
+              backgroundColor: Colors.blue),
+        ],
+        onTap:(index){
+          setState(() {
+            _currentIndex = index;
+          });
+        }
       ),
-      floatingActionButton: FloatingActionButton(
+      /*floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
